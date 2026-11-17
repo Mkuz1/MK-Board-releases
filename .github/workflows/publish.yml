@@ -1,10 +1,13 @@
 name: Publish release
 
-# Pushing a tag like v2.2.0 publishes apk/MKBoard-2.2.0.apk as a GitHub release.
-# (Releases can also be created directly by the private MK-Board repo's Release workflow.)
+# Adding apk/MKBoard-<version>.apk (plus optional release-notes/<version>.md) to main publishes it as
+# release v<version>; pushing a v* tag does the same. Already-published versions are skipped.
 on:
   push:
+    branches: [main]
+    paths: ['apk/**', 'release-notes/**']
     tags: ['v*']
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -14,16 +17,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Publish
+      - name: Publish every APK that has no release yet
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          VERSION="${GITHUB_REF_NAME#v}"
-          APK="apk/MKBoard-$VERSION.apk"
-          test -f "$APK" || { echo "::error::$APK not found"; exit 1; }
-          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
-            echo "Release $GITHUB_REF_NAME already exists"; exit 0
-          fi
-          NOTES="release-notes/$VERSION.md"
-          [ -f "$NOTES" ] || echo "MK Board $VERSION" > "$NOTES"
-          gh release create "$GITHUB_REF_NAME" "$APK" --title "MK Board $VERSION" --notes-file "$NOTES"
+          shopt -s nullglob
+          for APK in $(ls apk/MKBoard-*.apk | sort -V); do
+            VERSION=$(basename "$APK" .apk); VERSION="${VERSION#MKBoard-}"
+            TAG="v$VERSION"
+            if gh release view "$TAG" >/dev/null 2>&1; then
+              echo "$TAG already published"; continue
+            fi
+            NOTES="release-notes/$VERSION.md"
+            [ -f "$NOTES" ] || { echo "MK Board $VERSION" > /tmp/notes.md; NOTES=/tmp/notes.md; }
+            # newest version becomes "latest" automatically (created last)
+            gh release create "$TAG" "$APK" --target "$GITHUB_SHA" --title "MK Board $VERSION" --notes-file "$NOTES"
+            echo "Published $TAG"
+          done
