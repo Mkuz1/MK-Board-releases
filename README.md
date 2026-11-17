@@ -5,8 +5,8 @@
 ### ⬇️ [Download the latest APK](https://github.com/Mkuz1/MK-Board-releases/releases/latest)
 
 <p>
-<img src="screenshots/glass_light_phone.png" width="49%" alt="Liquid Glass keyboard">
-<img src="screenshots/bb_classic_letters.png" width="49%" alt="BlackBerry-style keyboard">
+<img src="screenshots/ios27_english_light.png" width="49%" alt="iOS 27 Liquid Glass keyboard">
+<img src="screenshots/ios27_arabic_dark.png" width="49%" alt="Arabic keyboard">
 </p>
 <img src="screenshots/tablet_ios_glass.png" alt="iPad-style layout on tablets and foldables">
 
