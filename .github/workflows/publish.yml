@@ -1,0 +1,29 @@
+name: Publish release
+
+# Pushing a tag like v2.2.0 publishes apk/MKBoard-2.2.0.apk as a GitHub release.
+# (Releases can also be created directly by the private MK-Board repo's Release workflow.)
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          APK="apk/MKBoard-$VERSION.apk"
+          test -f "$APK" || { echo "::error::$APK not found"; exit 1; }
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            echo "Release $GITHUB_REF_NAME already exists"; exit 0
+          fi
+          NOTES="release-notes/$VERSION.md"
+          [ -f "$NOTES" ] || echo "MK Board $VERSION" > "$NOTES"
+          gh release create "$GITHUB_REF_NAME" "$APK" --title "MK Board $VERSION" --notes-file "$NOTES"
