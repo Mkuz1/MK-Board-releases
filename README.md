@@ -8,7 +8,12 @@
 <img src="screenshots/ios27_english_light.png" width="49%" alt="iOS 27 Liquid Glass keyboard">
 <img src="screenshots/ios27_arabic_dark.png" width="49%" alt="Arabic keyboard">
 </p>
-<img src="screenshots/tablet_ios_glass.png" alt="iPad-style layout on tablets and foldables">
+<p>
+<img src="screenshots/new_autocorrect.png" width="32%" alt="Auto-correct">
+<img src="screenshots/new_emoji_search.png" width="32%" alt="Emoji search">
+<img src="screenshots/new_clipboard.png" width="32%" alt="Clipboard history">
+</p>
+<img src="screenshots/new_tablet_floating.png" alt="Floating keyboard on tablets">
 
 ## Install
 1. Download `MKBoard-x.y.z.apk` from the latest release and open it on your phone (Android 9 or newer). Allow "install unknown apps" when asked.
@@ -21,7 +26,9 @@ Once MK Board is installed, it checks this page for new versions and offers to i
 > Coming from version 2.0 or older? Uninstall it once, then install 2.1.0. Later updates install in place.
 
 ## Privacy
-Nothing you type ever leaves your device. The app only contacts GitHub to check this page for updates, and you can turn that off.
+Nothing you type ever leaves your device. Predictions, learned words, shortcuts and clipboard history stay on the phone. The app only contacts GitHub to check this page for updates, and you can turn that off.
+
+Dictionary data: wordfreq and Wikipedia (CC BY-SA 4.0).
 
 ---
 This repository only hosts releases. MK Board is not affiliated with Apple or BlackBerry.
