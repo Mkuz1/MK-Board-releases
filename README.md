@@ -26,6 +26,8 @@ Once MK Board is installed, it checks this page for new versions and offers to i
 > Coming from version 2.0 or older? Uninstall it once, then install 2.1.0. Later updates install in place.
 
 ## Privacy
+Full policy: [PRIVACY.md](PRIVACY.md)
+
 Nothing you type ever leaves your device. Predictions, learned words, shortcuts and clipboard history stay on the phone. The app only contacts GitHub to check this page for updates, and you can turn that off.
 
 Dictionary data: wordfreq and Wikipedia (CC BY-SA 4.0).
